@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin code checker API tutorial</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1>Pin code checker</h1>
+    <input type="text" id="pincode" />
+
+    <div class="result">
+        State: <span id="state"></span><br>
+        City: <span id="city"></span><br>
+        Branch: <span id="branch"></span><br>
+
+    </div>
+
+    <script>
+
+        $('#pincode').on('change', function () {
+
+
+            $.getJSON("https://api.postalpincode.in/pincode/" + this.value, function (data) {
+
+
+                console.log(data[0].PostOffice[0].State)
+
+                $('#state').append(data[0].PostOffice[0].State)
+                $('#city').append(data[0].PostOffice[0].District)
+
+                for (var i = 0; i < data[0].PostOffice.length; i++) {
+
+                    $('#branch').append(data[0].PostOffice[i].Name + ",")
+                }
+
+
+            })
+
+        })
+
+
+    </script>
+
+</body>
+
+</html>
